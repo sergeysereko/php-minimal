@@ -17,10 +17,10 @@ docker:=docker run --rm -v $(CURDIR):/app -w /app $(base_dir):$(php_version)
 build:
 	docker build --build-arg VERSION=$(php_version) --tag $(base_dir):$(php_version) ./docker/
 
-exec:$(php_version) sh
+exec:
+	docker run --rm -ti -v $(CURDIR):/app:rw -w /app $(base_dir):$(php_version) sh
 
 serve:
-	docker run --rm -ti -v $(CURDIR):/app:rw -w /app $(base_dir):
 	docker run -p$(server_port):8080 --rm -v $(CURDIR):/app -w /app $(base_dir):$(php_version) php -S 0.0.0.0:8080
 
 all: build exec
