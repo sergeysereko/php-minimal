@@ -37,7 +37,5 @@ make all PHP_VERSION=7.4 && make all PHP_VERSION=8.0
 ## Adopt for you 
 
 - Click on [Use template button](https://prnt.sc/w7avaw) 
-- Put your code to src/ tests/ directory
-- Delete config files for unused CI systems
-- Change project data in composer.json, README and Makefile
-
+- Write some code
+- Write more code
