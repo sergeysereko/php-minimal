@@ -1,0 +1,17 @@
+{
+    "name": "app/sergey",
+    "description": "my app",
+    "autoload": {
+        "psr-4": {
+            "App\\Sergey\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sergey"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.7"
+    }
+}

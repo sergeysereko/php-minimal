@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "One\\": "src/One/",
+      "Two\\": "src/Two/",
+      "Three\\Four\\": "src/Three/Four/",
+      "My\\": "src/My/",
+      "Calc\\": "src/"
+    }
+  }
+}

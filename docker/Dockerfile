@@ -1,4 +1,4 @@
-ARG VERSION
+ARG VERSION=7.4
 
 FROM php:${VERSION}-cli-alpine
 
