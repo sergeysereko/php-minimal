@@ -1,0 +1,46 @@
+use intern;
+-- Выведите список всех таблиц в базе данных
+SHOW tables;
+
+-- Выберите все счета за последние 2 месяца
+select * from invoice
+Where created_at >= date_sub((select MAX(created_at) from invoice), INTERVAL 2 MONTH)
+order by created_at ASC;
+
+-- Выведите даты счетов в формате "June 15 2017"
+select DATE_FORMAT(created_at, '%M %d, %Y') from invoice
+order by created_at ASC;
+
+-- Выведите клиентов и их питомцев через запятую. Например: Shevchenko | Tayson, Rex, Baron
+select 
+     a.id, 
+	 a.last_name as client,
+     group_concat(b.alias ORDER BY b.alias ASC SEPARATOR ', ') as pets
+     from client as a 
+left join pet as b ON a.id = b.client_id
+group by a.id
+order by a.last_name ASC; 
+
+-- Выведите список ФИО всех клиентов. Например: Solyanka E.S.
+
+select CONCAT(last_name," ", left(first_name,1),".", left(middle_name, 1),".") as FIO
+from client
+order by last_name ASC; 
+
+-- Посчитайте сумму всех счетов по клиентам. Вывод 2 колонки: FIO, Summ.
+
+select CONCAT(c.last_name," ", left(c.first_name,1),".", left(c.middle_name, 1),".") as FIO
+, SUM(i.amount) as Summ
+from client as c 
+left join invoice as i ON c.id = i.client_id
+GROUP BY c.id
+order by FIO ASC;
+
+-- Сделать дамп базы через CLI
+-- docker exec -it intern-mysql mysqldump -u root --password=123456 intern > dump_file.sql
+
+-- Удалить базу и импортировать из дампа через CLI
+DROP DATABASE IF EXISTS intern;
+CREATE DATABASE intern;
+-- docker exec -i intern-mysql mysql -u root --password=123456 intern < dump_file.sql
+
